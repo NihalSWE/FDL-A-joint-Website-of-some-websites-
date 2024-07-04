@@ -98,7 +98,7 @@
             <a href="{% url 'about' %}" class="nav-item nav-link">About</a>
             <a href="{% url 'service' %}" class="nav-item nav-link">Business</a>
             <a href="contact.html" class="nav-item nav-link">Contact</a>
-            <a href="#" class="nav-item nav-link">CAREER</a>
+            <a href="{% url 'career' %}" class="nav-item nav-link">CAREER</a>
         </div>
         {% if portfolio %}
             <a href="{{ portfolio.file.url }}" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Download<br>OUR PORTFOLIO<i class="fa fa-arrow-right ms-3"></i></a>
