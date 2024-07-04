@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from django.contrib import messages
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,Career_HeaderImage
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData
 # Create your views here.
 def base(request):
     return render(request, 'products/base.html')
@@ -26,8 +26,10 @@ def about(request):
     return render(request, 'products/about.html',context)
 
 def service(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
     business_strengths = BusinessStrength.objects.all()
     context = {
+        'portfolio': portfolio,
         'business_strengths': business_strengths
     }
 
@@ -36,10 +38,12 @@ def service(request):
 
 
 def career(request):
-    header_image = Career_HeaderImage.objects.first()  # Retrieve header image
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    
 
     context = {
-        'header_image': header_image,
+        'portfolio': portfolio,
+        
     }
 
     if request.method == 'POST':
@@ -71,4 +75,28 @@ def career(request):
             messages.error(request, 'Please fill out all fields.')
 
     return render(request, 'products/career.html', context)
+
+def contact(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    static_content = ContactStaticContent.objects.first()  # Assuming there's only one record
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
+
+        # Save form data to the database
+        ContactFormData.objects.create(name=name, email=email, subject=subject, message=message)
+
+        messages.success(request, 'Your message has been sent successfully!')
+        return redirect('contact')  # Redirect to the same page or another page
+
+
+    context = {
+        'portfolio': portfolio,
+        'static_content': static_content
+        
+    }
+    return render(request,'products/contact.html', context)
 

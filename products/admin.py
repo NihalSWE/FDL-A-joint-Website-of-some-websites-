@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,Career_HeaderImage
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData
 
 
 @admin.register(Portfolio)
@@ -21,12 +21,21 @@ class BusinessStrengthAdmin(admin.ModelAdmin):
 
 
 
-@admin.register(Career_HeaderImage)
-class Career_HeaderImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'image')
-    search_fields = ('id',)
+
 
 @admin.register(CareerApplication)
 class CareerApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'number', 'address', 'message','cv','submitted_at',)
     search_fields = ('name', 'number', 'address',)
+
+
+
+@admin.register(ContactStaticContent)
+class ContactStaticContentAdmin(admin.ModelAdmin):
+    list_display = ('heading', 'subheading', 'description',)
+    search_fields = ('heading', 'subheading',)
+
+@admin.register(ContactFormData)
+class ContactFormDataAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'message', 'created_at',)
+    search_fields = ('name', 'subject',)

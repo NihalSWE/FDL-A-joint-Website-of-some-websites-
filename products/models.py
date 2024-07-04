@@ -39,8 +39,22 @@ class CareerApplication(models.Model):
     def __str__(self):
         return self.name
     
-class Career_HeaderImage(models.Model):
-    image = models.ImageField(upload_to='header_images/')
+class ContactStaticContent(models.Model):
+    heading = models.CharField(max_length=200)
+    subheading = models.CharField(max_length=200)
+    description = models.TextField(max_length=200)
+    map_embed_url = models.TextField()  # Store the full iframe code
 
     def __str__(self):
-        return f"Career_HeaderImage {self.id}"
+        return self.heading
+    
+
+class ContactFormData(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.name}"
