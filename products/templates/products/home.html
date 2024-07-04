@@ -5,148 +5,61 @@ Home
 {% endblock %}
 {% block body %}
 {% load static %}
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative" data-dot="<img src={% static 'img/carousel-1.jpg'%}>">
-                <img class="img-fluid" src={% static "img/carousel-1.jpg"%} alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">We are
-                                Committed</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">We are committed to Building Green. We are fully aware of environmental concern related tour business work, sow select only those vendors who strictly follow it.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src={% static 'img/carousel-2.jpg'%}>">
-                <img class="img-fluid" src={% static "img/carousel-2.jpg"%} alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative" data-dot="<img src={% static 'img/carousel-3.jpg'%}>">
-                <img class="img-fluid" src={% static "img/carousel-3.jpg"%} alt="">
-                <div class="owl-carousel-inner">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-10 col-lg-8">
-                                <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
-                                <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
-                            </div>
+<!-- Carousel Start -->
+<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="owl-carousel header-carousel position-relative">
+        {% for item in carousel_items %}
+        <div class="owl-carousel-item position-relative" data-dot="<img src='{{ item.image.url }}'>">
+            <img class="img-fluid" src="{{ item.image.url }}" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">{{ item.title }}</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">{{ item.description }}</p>
+                            <a href="#" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    <!-- Carousel End -->
+</div>
+<!-- Carousel End -->
 
 
-    <!-- Service Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
 
-                <h1 class="mb-4">Our Business Strength</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-1.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/spl_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">SmartTech Properties Ltd.</h4>
-                            <p>We are well experienced and as a developer, We are well aware about the market condition To become successful in the business</p>
-                            <a class="small fw-medium" href="https://spl.com.bd/" style="_blink">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="mb-4">Our Business Strength</h1>
+        </div>
+        <div class="row g-4">
+            {% for item in business_strengths %}
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="{{ item.image.url }}" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <img src="{{ item.icon.url }}" style="width:80px;">
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-2.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/ccf_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">Cloud Cake & Foods</h4>
-                            <p>Cloud Cake is a Cake & Bakery Chain Shop. We offer various Cakes & Fast-food and Frozen Foods.</p>
-                            <a class="small fw-medium" href="https://cloudcake.com.bd/" _blink>Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-3.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/ah_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">Auto Hive</h4>
-                            <p>Automotive Service Provider Company. Classic & Vintage Car Restoration Workshop in Bangladesh</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-4.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/gmm_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">Guardian Medi & Mart Ltd.</h4>
-                            <p>Your one-stop destination for pharmaceuticals, health products, and everyday essentials. Visit us today!</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-5.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/gl_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">Guardian Lifestyle</h4>
-                            <p>Guardian Lifestyle: Embracing wellness and style, offering quality products to enhance every aspect of your life experience.</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded overflow-hidden">
-                        <img class="img-fluid" src={% static "img/img-600x400-6.jpg"%} alt="">
-                        <div class="position-relative p-4 pt-0">
-                            <div class="service-icon">
-                                <img src={% static "img/artinest_logo.png"%} style="width:80px;">
-                            </div>
-                            <h4 class="mb-3">ArtiNest</h4>
-                            <p>Transforming Lives with Interior Design, Architectural Consultancy, and Building Construction Management from Start to Finish</p>
-                            <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                        </div>
+                        <h4 class="mb-3">{{ item.title }}</h4>
+                        <p>{{ item.description }}</p>
+                        {% if item.link %}
+                        <a class="small fw-medium" href="{{ item.link }}" target="_blank">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        {% else %}
+                        <a class="small fw-medium disabled">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-    <!-- Service End -->
-
+</div>
+<!-- Service End -->
 
     <!-- Feature Start -->
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
