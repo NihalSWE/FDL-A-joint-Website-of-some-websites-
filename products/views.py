@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About
 # Create your views here.
 def base(request):
     return render(request, 'products/base.html')
@@ -22,14 +22,18 @@ def home(request):
     return render(request, 'products/home.html',context)
 
 def about(request):
-    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    portfolio = Portfolio.objects.last()  
+    about_info = About.objects.first()
+    team_members = TeamMember.objects.all()
     context = {
         'portfolio': portfolio,
+        'team_members': team_members,
+        'about_info': about_info
     }
     return render(request, 'products/about.html',context)
 
 def service(request):
-    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    portfolio = Portfolio.objects.last()  
     business_strengths = BusinessStrength.objects.all()
     context = {
         'portfolio': portfolio,

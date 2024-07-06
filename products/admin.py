@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About
 
 
 @admin.register(Portfolio)
@@ -27,6 +27,14 @@ class InvestorAdmin(admin.ModelAdmin):
 
 
 
+
+
+
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
 
 
 
