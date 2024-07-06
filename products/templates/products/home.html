@@ -154,95 +154,61 @@ Home
     <!-- Quote End -->
 
 
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">FDL FAMILY</h6>
-                <h1 class="mb-4">Visionary Team</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item rounded overflow-hidden">
-                        <div class="d-flex">
-                            <img class="img-fluid" src={% static "img/team-1.jpg" %} alt="">
-                        </div>
-                        <div class="p-4">
-                            <h5>Mohammad Kamrujjaman Sikder</h5>
-                            <span>Chairman & CEO</span>
-                        </div>
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">FDL FAMILY</h6>
+            <h1 class="mb-4">Visionary Team</h1>
+        </div>
+        <div class="row g-4">
+            {% for member in team_members %}
+            <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid" src="{{ member.image.url }}" alt="{{ member.name }}">
+                    </div>
+                    <div class="p-4">
+                        <h5>{{ member.name }}</h5>
+                        <span>{{ member.position }}</span>
+                        <p>{{ member.bio }}</p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="team-item rounded overflow-hidden">
-                        <div class="d-flex">
-                            <img class="img-fluid" src={% static "img/team-2.jpg"%} alt="">
-                            
-                        </div>
-                        <div class="p-4">
-                            <h5>NAFIZ AHMED</h5>
-                            <span>Managing Director</span>
-                        </div>
-                    </div>
-                </div>
-                
             </div>
+            {% endfor %}
         </div>
     </div>
-    <!-- Team End -->
+</div>
+<!-- Team End -->
 
 
-    <!-- Testimonial Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h6 class="text-primary">INVESTORS</h6>
-                <h1 class="mb-4">What Our Investor Say!</h1>
-            </div>
-            <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src={% static "img/testimonial-1.jpg"%}>
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>FDL Group demonstrates strategic vision, diversified portfolios, and strong performance, making it an attractive investment opportunity.</p>
-                        <h5 class="mb-1">Sanaul Huq</h5>
-                        <span class="fst-italic">Director</span>
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">INVESTORS</h6>
+            <h1 class="mb-4">What Our Investor Say!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            {% for investor in investors %}
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5" src="{{ investor.image.url }}">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
                     </div>
                 </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src={% static "img/testimonial-1.jpg"%}>
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>FDL Group demonstrates strategic vision, diversified portfolios, and strong performance, making it an attractive investment opportunity.</p>
-                        <h5 class="mb-1">Sanaul Huq</h5>
-                        <span class="fst-italic">Director</span>
-                    </div>
-                </div>
-                <div class="testimonial-item text-center">
-                    <div class="testimonial-img position-relative">
-                        <img class="img-fluid rounded-circle mx-auto mb-5" src={% static "img/testimonial-1.jpg"%}>
-                        <div class="btn-square bg-primary rounded-circle">
-                            <i class="fa fa-quote-left text-white"></i>
-                        </div>
-                    </div>
-                    <div class="testimonial-text text-center rounded p-4">
-                        <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                        <h5 class="mb-1">Sanaul Huq</h5>
-                        <span class="fst-italic">Director</span>
-                    </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>{{ investor.quote }}</p>
+                    <h5 class="mb-1">{{ investor.name }}</h5>
+                    <span class="fst-italic">{{ investor.position }}</span>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
-    <!-- Testimonial End -->
+</div>
+<!-- Testimonial End -->
 
 
 

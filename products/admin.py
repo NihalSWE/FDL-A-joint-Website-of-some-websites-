@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor
 
 
 @admin.register(Portfolio)
@@ -15,6 +15,15 @@ class CarouselItemAdmin(admin.ModelAdmin):
 class BusinessStrengthAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'image', 'icon', 'link']
 
+@admin.register(TeamMember)
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'position')
+    search_fields = ('name', 'position')
+
+@admin.register(Investor)
+class InvestorAdmin(admin.ModelAdmin):
+    list_display = ('name', 'position')
+    search_fields = ('name', 'position')
 
 
 

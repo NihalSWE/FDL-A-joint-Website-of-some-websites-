@@ -58,3 +58,22 @@ class ContactFormData(models.Model):
 
     def __str__(self):
         return f"Message from {self.name}"
+    
+class TeamMember(models.Model):
+    name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='team/')
+    bio = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
+class Investor(models.Model):
+    name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='testimonials/')
+    quote = models.TextField()
+
+    def __str__(self):
+        return self.name
