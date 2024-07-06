@@ -35,9 +35,11 @@ def about(request):
 def service(request):
     portfolio = Portfolio.objects.last()  
     business_strengths = BusinessStrength.objects.all()
+    investors = Investor.objects.all()
     context = {
         'portfolio': portfolio,
-        'business_strengths': business_strengths
+        'business_strengths': business_strengths,
+        'investors': investors
     }
 
     return render(request,'products/service.html',context)
