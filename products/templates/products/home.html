@@ -3,6 +3,9 @@
 {% block title %}
 Home
 {% endblock %}
+
+
+
 {% block body %}
 {% load static %}
 <!-- Carousel Start -->
@@ -34,7 +37,11 @@ Home
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1 class="mb-4">Our Business Strength</h1>
+            <h1 class="mb-4" style="text-transform: uppercase; font-weight: 500;">Our Business Strength</h1>
+            <h2 style="text-transform: uppercase; font-weight: 300; letter-spacing: 1px;">Sister Concern</h2>
+
+
+
         </div>
         <div class="row g-4">
             {% for item in business_strengths %}
@@ -60,6 +67,48 @@ Home
     </div>
 </div>
 <!-- Service End -->
+
+
+<!--Franchise Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h2 style="text-transform: uppercase; font-weight: 300; letter-spacing: 1px;">We are franchise of</h2>
+        </div>
+        <div class="row g-4">
+            {% for franchise in franchises %}
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
+                <div class="service-item rounded overflow-hidden">
+                    <!-- Franchise Image -->
+                    <img class="img-fluid" src="{{ franchise.image.url }}" alt="{{ franchise.name }}">
+                    
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <!-- Franchise Icon -->
+                            <img src="{{ franchise.icon.url }}" alt="{{ franchise.name }} icon" style="width:80px;">
+                        </div>
+                        
+                        <!-- Franchise Name -->
+                        <h4 class="mb-3">{{ franchise.name }}</h4>
+                        
+                        <!-- Franchise Description -->
+                        <p>{{ franchise.description }}</p>
+                        
+                        <!-- Optional Read More Link -->
+                        {% if franchise.link %}
+                        <a class="small fw-medium" href="{{ franchise.link }}" target="_blank">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        {% else %}
+                        <a class="small fw-medium disabled">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
 
     <!-- Feature Start -->
     <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
@@ -154,7 +203,7 @@ Home
     <!-- Quote End -->
 
 
-<!-- Team Start -->
+{% comment %} <!-- Team Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-4 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -179,10 +228,10 @@ Home
         </div>
     </div>
 </div>
-<!-- Team End -->
+<!-- Team End --> {% endcomment %}
 
 
-<!-- Testimonial Start -->
+{% comment %} <!-- Testimonial Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -208,7 +257,21 @@ Home
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
+<!-- Testimonial End --> {% endcomment %}
+
+<!-- Map Section Start -->
+<div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
+    <div class="container contact px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-12 pe-lg-0" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    {{ static_content.map_embed_url|safe }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Map Section End -->
 
 
 

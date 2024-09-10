@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About,Franchise
 
 
 @admin.register(Portfolio)
@@ -14,6 +14,10 @@ class CarouselItemAdmin(admin.ModelAdmin):
 @admin.register(BusinessStrength)
 class BusinessStrengthAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'image', 'icon', 'link']
+
+@admin.register(Franchise)
+class FranchiseAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'description','image', 'icon', 'link']
 
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):

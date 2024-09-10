@@ -27,6 +27,17 @@ class BusinessStrength(models.Model):
         return self.title
     
 
+class Franchise(models.Model):
+    name = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='franchise/')
+    icon=models.ImageField(upload_to='franchise/icons')
+    description = models.TextField()
+    link = models.URLField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
 class CareerApplication(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=50)
@@ -69,14 +80,35 @@ class TeamMember(models.Model):
         return self.name
     
 
+from django.db import models
+from PIL import Image
+import os
+
 class Investor(models.Model):
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     image = models.ImageField(upload_to='testimonials/')
-    quote = models.TextField()
+    quote = models.TextField(max_length=150)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        # Call the original save method
+        super().save(*args, **kwargs)
+
+        # Resize the image if it exists
+        if self.image and hasattr(self.image, 'path'):
+            image_path = self.image.path
+            # Open and resize the image
+            with Image.open(image_path) as img:
+                size = (300, 300)  # Square dimensions
+                img = img.resize(size, Image.LANCZOS)
+                
+                # Save the resized image
+                img.save(image_path)
+
+    
     
 
 class About(models.Model):

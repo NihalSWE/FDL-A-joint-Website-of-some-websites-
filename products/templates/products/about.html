@@ -3,6 +3,111 @@
 {% block title %}
 About Us
 {% endblock %}
+<style>
+
+    .team-item {
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        height: auto; /* Adjust card height dynamically based on content */
+        border-radius: 10px;
+    }
+    
+    .team-item:hover {
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    
+    .team-item img {
+        width: 100%;
+        height: 150px; /* Limit image height */
+        object-fit: cover;
+    }
+    
+    .team-item .p-3 {
+        padding: 1rem !important; /* Reduce padding around the text */
+    }
+    
+    .text-truncate {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
+    }
+    
+
+    
+    .testimonial-card {
+        height: 100%; /* Ensure the card height fills the available space */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-img img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border: 4px solid #e1675a;
+        display: block;
+        margin: 0 auto;
+    }
+    
+    @media (max-width: 768px) {
+        .testimonial-img img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .testimonial-img img {
+            width: 100px;
+            height: 100px;
+        }
+    }
+    
+    .card-body {
+        text-align: justify; /* Justify the text */
+        text-justify: inter-word; /* Ensure proper word spacing for justification */
+        padding-top: 1rem;
+        text-align-last: center; /* Center the last line */
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+        height: 100px; /* Limit height to keep text square-like */
+        overflow: hidden; /* Hide overflowing text */
+    }
+    
+    .card-title {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+        font-size: 1.2rem;
+    }
+    
+    .fst-italic {
+        font-style: italic;
+        color: #6c757d;
+        margin-top: auto; /* Ensure it's always at the bottom */
+    }
+    
+    .testimonial-card {
+        min-height: 350px; /* Ensure a minimum height for the entire card */
+        max-height: 400px; /* Set a max height to maintain a square-like shape */
+        overflow: hidden; /* Hide overflow content */
+    }
+    
+</style>
 {% block body %}
 {% load static %}
 
@@ -56,12 +161,12 @@ About Us
             <div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="d-flex">
-                        <img class="img-fluid" src="{{ member.image.url }}" alt="{{ member.name }}">
+                        <img class="img-fluid team-img" src="{{ member.image.url }}" alt="{{ member.name }}">
                     </div>
-                    <div class="p-4">
+                    <div class="p-3"> <!-- Reduced padding -->
                         <h5>{{ member.name }}</h5>
                         <span>{{ member.position }}</span>
-                        <p>{{ member.bio }}</p>
+                        <p class="text-truncate" style="max-height: 60px; overflow: hidden;">{{ member.bio }}</p> <!-- Optional text truncation -->
                     </div>
                 </div>
             </div>
@@ -70,5 +175,39 @@ About Us
     </div>
 </div>
 <!-- Team End -->
-        
+
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">DIRECTORS</h6>
+            <h1 class="mb-4">What Our Directors Say!</h1>
+        </div>
+        <div class="row g-4">
+            {% for investor in investors %}
+            <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
+                <div class="testimonial-card h-100 shadow-lg border-0">
+                    <div class="testimonial-img">
+                        <img class="img-fluid mx-auto d-block" src="{{ investor.image.url }}" alt="{{ investor.name }}">
+                    </div>
+                    <div class="card-body text-center">
+                        <!-- Investor's Quote -->
+                        <p class="card-text">{{ investor.quote }}</p>
+
+                        <!-- Investor's Name -->
+                        <h5 class="card-title mb-1">{{ investor.name }}</h5>
+
+                        <!-- Investor's Position -->
+                        <span class="fst-italic text-muted">{{ investor.position }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+
     {% endblock %} 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About
+from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,ContactStaticContent, ContactFormData,TeamMember,Investor,About,Franchise
 # Create your views here.
 def base(request):
     return render(request, 'products/base.html')
@@ -10,14 +10,19 @@ def home(request):
     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
     carousel_items = CarouselItem.objects.all()
     business_strengths = BusinessStrength.objects.all()
-    team_members = TeamMember.objects.all()
-    investors = Investor.objects.all()
+    franchises=Franchise.objects.all()
+    # team_members = TeamMember.objects.all()
+
+    # investors = Investor.objects.all()
+    static_content = ContactStaticContent.objects.first()  # Assuming there's only one record
     context = {
         'portfolio': portfolio,
         'carousel_items': carousel_items,
         'business_strengths': business_strengths,
-        'team_members': team_members,
-        'investors': investors
+        'franchises':franchises,
+        # 'team_members': team_members,
+        # 'investors': investors
+        'static_content': static_content
     }
     return render(request, 'products/home.html',context)
 
@@ -25,10 +30,12 @@ def about(request):
     portfolio = Portfolio.objects.last()  
     about_info = About.objects.first()
     team_members = TeamMember.objects.all()
+    investors = Investor.objects.all()
     context = {
         'portfolio': portfolio,
         'team_members': team_members,
-        'about_info': about_info
+        'about_info': about_info,
+        'investors': investors
     }
     return render(request, 'products/about.html',context)
 
