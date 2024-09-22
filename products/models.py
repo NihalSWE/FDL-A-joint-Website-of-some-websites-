@@ -71,11 +71,18 @@ class ContactFormData(models.Model):
         return f"Message from {self.name}"
     
 class TeamMember(models.Model):
+    ROLE_CHOICES = [
+        ('Chairman', 'Chairman'),
+        ('MD', 'Managing Director'),
+        # Add more roles as needed
+    ]
+    
     name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     image = models.ImageField(upload_to='team/')
     bio = models.TextField(blank=True, null=True)
-
+    role = models.CharField(max_length=100, choices=ROLE_CHOICES, default='Chairman')
+   
     def __str__(self):
         return self.name
     

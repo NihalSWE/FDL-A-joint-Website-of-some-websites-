@@ -29,11 +29,11 @@ def home(request):
 def about(request):
     portfolio = Portfolio.objects.last()  
     about_info = About.objects.first()
-    team_members = TeamMember.objects.all()
+    # team_members = TeamMember.objects.all()
     investors = Investor.objects.all()
     context = {
         'portfolio': portfolio,
-        'team_members': team_members,
+        # 'team_members': team_members,
         'about_info': about_info,
         'investors': investors
     }
@@ -116,3 +116,14 @@ def contact(request):
     }
     return render(request,'products/contact.html', context)
 
+# View for Chairman Page
+def chairman_view(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    chairman = TeamMember.objects.filter(role='Chairman').first()  # Get Chairman's data
+    return render(request, 'products/chairman.html', {'executive': chairman,'portfolio': portfolio})
+
+# View for Managing Director (MD) Page
+def md_view(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    md = TeamMember.objects.filter(role='MD').first()  # Get MD's data
+    return render(request, 'products/md.html', {'executive': md,'portfolio': portfolio})
