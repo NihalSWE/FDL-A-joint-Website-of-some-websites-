@@ -5,6 +5,13 @@ from .models import Portfolio,CarouselItem,BusinessStrength,CareerApplication,Co
 def base(request):
     return render(request, 'products/base.html')
 
+def error_page(request, exception):
+    portfolio = Portfolio.objects.last()
+    context = {
+        'portfolio': portfolio,
+    }
+    return render(request, 'products/404.html', context)
+
 
 def home(request):
     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
