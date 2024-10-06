@@ -60,3 +60,12 @@ class ContactStaticContentAdmin(admin.ModelAdmin):
 class ContactFormDataAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'subject', 'message', 'created_at',)
     search_fields = ('name', 'subject',)
+
+
+
+from .models import Gallery
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ('id','title', 'uploaded_at')
+    search_fields = ('title',)

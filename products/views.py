@@ -12,7 +12,6 @@ def error_page(request, exception):
     }
     return render(request, 'products/404.html', context)
 
-
 def home(request):
     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
     carousel_items = CarouselItem.objects.all()
@@ -35,13 +34,13 @@ def home(request):
 
 def about(request):
     portfolio = Portfolio.objects.last()  
-    about_info = About.objects.first()
+    # about_info = About.objects.first()
     # team_members = TeamMember.objects.all()
     investors = Investor.objects.all()
     context = {
         'portfolio': portfolio,
         # 'team_members': team_members,
-        'about_info': about_info,
+        # 'about_info': about_info,
         'investors': investors
     }
     return render(request, 'products/about.html',context)
@@ -49,11 +48,12 @@ def about(request):
 def service(request):
     portfolio = Portfolio.objects.last()  
     business_strengths = BusinessStrength.objects.all()
-    investors = Investor.objects.all()
+    franchises=Franchise.objects.all()
+    
     context = {
         'portfolio': portfolio,
         'business_strengths': business_strengths,
-        'investors': investors
+        'franchises':franchises,
     }
 
     return render(request,'products/service.html',context)
@@ -122,7 +122,9 @@ def contact(request):
         
     }
     return render(request,'products/contact.html', context)
-
+    
+    
+    
 # View for Chairman Page
 def chairman_view(request):
     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
@@ -134,3 +136,11 @@ def md_view(request):
     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
     md = TeamMember.objects.filter(role='MD').first()  # Get MD's data
     return render(request, 'products/md.html', {'executive': md,'portfolio': portfolio})
+
+
+from .models import Gallery
+
+# Display the photo gallery
+def gallery(request):
+    photos = Gallery.objects.all().order_by('-uploaded_at')  # Fetch all photos, newest first
+    return render(request, 'products/gallery.html', {'photos': photos})

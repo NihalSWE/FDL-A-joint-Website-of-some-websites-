@@ -11,8 +11,8 @@ urlpatterns = [
     path('contact/', views.contact, name="contact"),
     path('chairman/', views.chairman_view, name='chairman'),
     path('md/', views.md_view, name='md'),
-    # path('error_page/',views.error_page,name="error_page"),
+    path('gallery/', views.gallery, name='gallery'),
+    
     
 ]
-# Correctly set the handler404
-# handler404 = 'products.views.error_page'
+

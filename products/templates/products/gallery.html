@@ -1,0 +1,345 @@
+{% extends "products/base.html" %}
+
+{% block title %}
+    Modern Photo Gallery
+{% endblock %}
+
+{% block body %}
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Photo Gallery</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Gallery</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="gallery-container">
+    <div class="gallery-header">
+        <h1 class="gallery-title">Our Professional Gallery</h1>
+        <p class="gallery-description">Explore our curated collection of stunning moments captured in time</p>
+    </div>
+
+    <div class="photo-grid">
+        {% for photo in photos %}
+        <div class="photo-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter }}00">
+            <div class="photo-card">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="photo-img" data-full="{{ photo.image.url }}">
+                <div class="photo-overlay">
+                    <div class="overlay-content">
+                        <h2>{{ photo.title }}</h2>
+                        <p>{{ photo.description }}</p>
+                        <button class="view-btn">View Full Size</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Enhanced Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+        <button class="prev-btn">&lt;</button>
+        <img id="lightbox-img" src="" alt="Full size image">
+        <button class="next-btn">&gt;</button>
+    </div>
+    <div class="lightbox-details">
+        <h3 id="lightbox-title"></h3>
+        <p id="lightbox-description"></p>
+    </div>
+    <button class="close-btn">&times;</button>
+</div>
+
+<style>
+    /* Modern Container Styling */
+    .gallery-container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 2rem;
+        background-color: #ffffff;
+    }
+
+    .gallery-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .gallery-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(45deg, #2c3e50, #3498db);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+    }
+
+    .gallery-description {
+        font-size: 1.2rem;
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Enhanced Grid Styling */
+    .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .photo-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .photo-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    /* Modern Overlay Effect */
+    .photo-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: all 0.4s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+    }
+
+    .photo-card:hover .photo-overlay {
+        opacity: 1;
+    }
+
+    .overlay-content {
+        text-align: center;
+        color: #fff;
+        transform: translateY(20px);
+        transition: transform 0.4s ease;
+    }
+
+    .photo-card:hover .overlay-content {
+        transform: translateY(0);
+    }
+
+    .overlay-content h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .overlay-content p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .view-btn {
+        padding: 0.8rem 1.5rem;
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .view-btn:hover {
+        background: #fff;
+        color: #000;
+    }
+
+    /* Enhanced Lightbox Styling */
+    .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1000;
+        padding: 2rem;
+    }
+
+    .lightbox-content {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding-top: 165px;
+    }
+
+    .lightbox img {
+        max-height: 80vh;
+        max-width: 80vw;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-details {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .close-btn,
+    .prev-btn,
+    .next-btn {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+
+    .close-btn:hover,
+    .prev-btn:hover,
+    .next-btn:hover {
+        color: #3498db;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .gallery-title {
+            font-size: 2.5rem;
+        }
+
+        .photo-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .photo-img {
+            height: 300px;
+        }
+    }
+</style>
+
+<script>
+    // Enhanced Lightbox Functionality
+    const photos = document.querySelectorAll('.photo-card');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxDesc = document.getElementById('lightbox-description');
+    const closeBtn = document.querySelector('.close-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    let currentIndex = 0;
+    const photoData = [];
+
+    // Collect all photo data
+    photos.forEach((photo, index) => {
+        const img = photo.querySelector('.photo-img');
+        const title = photo.querySelector('h2').textContent;
+        const desc = photo.querySelector('p').textContent;
+        
+        photoData.push({
+            src: img.dataset.full,
+            title: title,
+            description: desc
+        });
+
+        photo.addEventListener('click', () => openLightbox(index));
+    });
+
+    function openLightbox(index) {
+        currentIndex = index;
+        updateLightboxContent();
+        lightbox.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function updateLightboxContent() {
+        const photo = photoData[currentIndex];
+        lightboxImg.src = photo.src;
+        lightboxTitle.textContent = photo.title;
+        lightboxDesc.textContent = photo.description;
+
+        // Update navigation buttons
+        prevBtn.style.display = currentIndex > 0 ? 'block' : 'none';
+        nextBtn.style.display = currentIndex < photoData.length - 1 ? 'block' : 'none';
+    }
+
+    // Navigation
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateLightboxContent();
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < photoData.length - 1) {
+            currentIndex++;
+            updateLightboxContent();
+        }
+    });
+
+    // Close lightbox
+    closeBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    });
+
+    // Close on outside click
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (lightbox.style.display === 'block') {
+            if (e.key === 'Escape') {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                currentIndex--;
+                updateLightboxContent();
+            } else if (e.key === 'ArrowRight' && currentIndex < photoData.length - 1) {
+                currentIndex++;
+                updateLightboxContent();
+            }
+        }
+    });
+</script>
+{% endblock %}
