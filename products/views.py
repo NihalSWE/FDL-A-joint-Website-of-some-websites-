@@ -34,16 +34,19 @@ def home(request):
 
 def about(request):
     portfolio = Portfolio.objects.last()  
-    # about_info = About.objects.first()
-    # team_members = TeamMember.objects.all()
+    chairman = TeamMember.objects.filter(role='Chairman').first()  # Get Chairman's data
+    md = TeamMember.objects.filter(role='MD').first()  # Get MD's data
     investors = Investor.objects.all()
+    
     context = {
         'portfolio': portfolio,
-        # 'team_members': team_members,
-        # 'about_info': about_info,
+        'chairman': chairman,  # Store chairman separately
+        'md': md,              # Store managing director separately
         'investors': investors
     }
-    return render(request, 'products/about.html',context)
+    
+    return render(request, 'products/about.html', context)
+
 
 def service(request):
     portfolio = Portfolio.objects.last()  
@@ -126,21 +129,35 @@ def contact(request):
     
     
 # View for Chairman Page
-def chairman_view(request):
-    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
-    chairman = TeamMember.objects.filter(role='Chairman').first()  # Get Chairman's data
-    return render(request, 'products/chairman.html', {'executive': chairman,'portfolio': portfolio})
+# def chairman_view(request):
+#     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+#     chairman = TeamMember.objects.filter(role='Chairman').first()  # Get Chairman's data
+#     return render(request, 'products/chairman.html', {'executive': chairman,'portfolio': portfolio})
 
 # View for Managing Director (MD) Page
-def md_view(request):
-    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
-    md = TeamMember.objects.filter(role='MD').first()  # Get MD's data
-    return render(request, 'products/md.html', {'executive': md,'portfolio': portfolio})
+# def md_view(request):
+#     portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+#     md = TeamMember.objects.filter(role='MD').first()  # Get MD's data
+#     return render(request, 'products/md.html', {'executive': md,'portfolio': portfolio})
 
 
 from .models import Gallery
 
 # Display the photo gallery
 def gallery(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
     photos = Gallery.objects.all().order_by('-uploaded_at')  # Fetch all photos, newest first
-    return render(request, 'products/gallery.html', {'photos': photos})
+    return render(request, 'products/gallery.html', {'photos': photos,'portfolio': portfolio})
+
+from django.shortcuts import get_object_or_404
+from .models import Blog
+
+def blog_list(request):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    blogs = Blog.objects.all().order_by('-created_at')
+    return render(request, 'products/blog_list.html', {'blogs': blogs,'portfolio': portfolio})
+
+def blog_detail(request, blog_id):
+    portfolio = Portfolio.objects.last()  # Get the most recently uploaded portfolio
+    blog = get_object_or_404(Blog, id=blog_id)
+    return render(request, 'products/blog_detail.html', {'blog': blog,'portfolio': portfolio})

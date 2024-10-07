@@ -69,3 +69,12 @@ from .models import Gallery
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id','title', 'uploaded_at')
     search_fields = ('title',)
+
+from .models import Blog
+from django.contrib import admin
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'author', 'created_at', 'updated_at')
+    search_fields = ('title',)
+    list_filter = ('created_at', 'author')

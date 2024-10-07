@@ -1,0 +1,173 @@
+{% extends "products/base.html" %}
+{% block title %}{{ blog.title }}{% endblock %}
+
+<style>
+/* Blog Header Section */
+.blog-header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.blog-meta {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+/* Blog Content */
+.lead {
+    font-size: 1.15rem;
+    color: #444;
+    line-height: 1.8;
+    text-align: justify;
+    margin-bottom: 30px;
+}
+
+/* Blog Image */
+.blog-image-standard {
+    max-height: 350px; /* Decrease image height for better balance */
+    width: 100%; /* Ensure it spans the full width */
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #4d352c;
+    border-color: #4d352c;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3c2a23;
+    transform: scale(1.05);
+}
+
+.btn-outline-primary {
+    border-color: #4d352c;
+    color: #4d352c;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4d352c;
+    color: white;
+}
+
+/* Related Blog Cards */
+.card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.75rem;
+}
+
+/* Footer Section */
+.blog-footer {
+    margin-top: 40px;
+}
+
+/* Typography Adjustments */
+h2.text-center {
+    font-weight: 700;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+p.text-muted {
+    color: #777;
+}
+
+/* Spacing Enhancements */
+.container {
+    max-width: 1200px;
+}
+
+.col-md-4 {
+    display: flex;
+    align-items: stretch;
+}
+
+@media (max-width: 768px) {
+    .blog-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
+    .blog-image-standard {
+        max-height: 250px;
+    }
+}
+</style>
+
+{% block body %}
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Blogs</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">Single Blog</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Blog Detail Start -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Blog Title and Meta -->
+            <div class="blog-header text-center mb-4">
+                <h1>{{ blog.title }}</h1>
+                <p class="blog-meta">Published by <strong>{{ blog.author }}</strong> on {{ blog.created_at|date:"F j, Y" }}</p>
+            </div>
+
+            <!-- Blog Image with Standard Size -->
+            {% if blog.image %}
+            <div class="blog-image text-center mb-4">
+                <img src="{{ blog.image.url }}" class="img-fluid blog-image-standard" alt="{{ blog.title }}">
+            </div>
+            {% endif %}
+
+            <!-- Blog Content -->
+            <div class="blog-content px-4">
+                <article class="lead">
+                    {{ blog.content|linebreaks }}
+                </article>
+            </div>
+
+            <!-- Back to Blogs Button -->
+            <div class="text-center mt-4">
+                <a href="{% url 'blogs' %}" class="btn btn-outline-primary rounded-pill px-5 py-3">Back to Blogs</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blog Detail End -->
+
+{% endblock %}

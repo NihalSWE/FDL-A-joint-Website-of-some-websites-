@@ -5,6 +5,32 @@ About Us
 {% endblock %}
 
 <style>
+    body {
+        background-color: #f8f9fa; /* Light background for better contrast */
+    }
+
+    .page-header {
+        background: linear-gradient(90deg, #e1675a, #c74b3b);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+        color: white;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+
     .testimonial-card {
         height: 100%;
         display: flex;
@@ -12,42 +38,28 @@ About Us
         justify-content: space-between;
         padding: 1.5rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px; /* Rounded corners for a softer look */
+        background: white; /* White background for cards */
     }
 
     .testimonial-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
     }
 
     .testimonial-img img {
         width: 150px;
         height: 150px;
         object-fit: cover;
+        border-radius: 50%; /* Circular images */
         border: 4px solid #e1675a;
         display: block;
         margin: 0 auto;
     }
 
-    @media (max-width: 768px) {
-        .testimonial-img img {
-            width: 120px;
-            height: 120px;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .testimonial-img img {
-            width: 100px;
-            height: 100px;
-        }
-    }
-
     .card-body {
-        text-align: justify;
-        text-justify: inter-word;
-        padding-top: 1rem;
-        text-align-last: center;
+        text-align: center;
     }
 
     .card-text {
@@ -70,10 +82,27 @@ About Us
         margin-top: auto;
     }
 
-    .testimonial-card {
-        min-height: 350px;
-        max-height: 400px;
-        overflow: hidden;
+    .bio-section {
+        margin: 5rem 0;
+    }
+
+    .bio-section img {
+        border-radius: 10px; /* Rounded corners for images */
+        max-width: 100%; /* Responsive image */
+    }
+
+    @media (max-width: 768px) {
+        .testimonial-img img {
+            width: 120px;
+            height: 120px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .testimonial-img img {
+            width: 100px;
+            height: 100px;
+        }
     }
 </style>
 
@@ -83,42 +112,82 @@ About Us
 <!-- Page Header Start -->
 <div class="container-fluid page-header py-5 mb-5">
     <div class="container py-5">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Board Of DIRECTORS</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
         <nav aria-label="breadcrumb animated slideInDown">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                 <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                <li class="breadcrumb-item text-white active" aria-current="page">Board Of DIRECTORS</li>
+                <li class="breadcrumb-item text-white active" aria-current="page">About Us</li>
             </ol>
         </nav>
     </div>
 </div>
 <!-- Page Header End -->
 
-<!-- Testimonial Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
-            <h1>Board Of DIRECTORS</h1><br>
-        </div>
-        <div class="row g-4">
-            {% for investor in investors %}
-            <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
-                <div class="testimonial-card h-100 shadow-lg border-0">
-                    <div class="testimonial-img">
-                        <img class="img-fluid mx-auto d-block" src="{{ investor.image.url }}" alt="{{ investor.name }}">
-                    </div>
-                    <div class="card-body text-center">
-                        <p class="card-text">{{ investor.quote }}</p>
-                        <h5 class="card-title mb-1">{{ investor.name }}</h5>
-                        <span class="fst-italic text-muted">{{ investor.position }}</span>
-                    </div>
+<!-- Chairman Section Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container py-5 bio-section">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="position-relative overflow-hidden">
+                    <img class="img-fluid shadow-lg" src="{{ chairman.image.url }}" alt="{{ chairman.name }}">
                 </div>
             </div>
-            {% endfor %}
+            <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
+                <h3>{{ chairman.name }}</h3>
+                <h6>{{ chairman.position }}</h6>
+                <p class="mb-3" style="font-size: 1.1rem; text-align: justify;">
+                    {{ chairman.bio }}
+                </p>
+            </div>
         </div>
     </div>
 </div>
-<!-- Testimonial End -->
+<!-- Chairman Section End -->
+
+<!-- Managing Director Section Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container py-5 bio-section">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-7 wow fadeIn" data-wow-delay="0.5s">
+                <h3>{{ md.name }}</h3>
+                <h6>{{ md.position }}</h6>
+                <p class="mb-3" style="font-size: 1.1rem; text-align: justify;">
+                    {{ md.bio }}
+                </p>
+            </div>
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="position-relative overflow-hidden">
+                    <img class="img-fluid shadow-lg" src="{{ md.image.url }}" alt="{{ md.name }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Managing Director Section End -->
+
+<!-- Board Of Directors Section Start -->
+<div class="container-xxl py-5">
+    <div class="container section-header">
+        <h1>Board Of Directors</h1><br>
+    </div>
+    <div class="row g-4">
+        {% for investor in investors %}
+        <div class="col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.{{ forloop.counter0 }}s">
+            <div class="testimonial-card h-100 shadow-lg border-0">
+                <div class="testimonial-img">
+                    <img class="img-fluid mx-auto d-block" src="{{ investor.image.url }}" alt="{{ investor.name }}">
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ investor.quote }}</p>
+                    <h5 class="card-title mb-1">{{ investor.name }}</h5>
+                    <span class="fst-italic text-muted">{{ investor.position }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Board Of Directors Section End -->
 
 {% endblock %}
